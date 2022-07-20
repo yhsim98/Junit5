@@ -1,5 +1,6 @@
 package com.example.test.study.domain;
 
+import com.example.test.parent.Parent;
 import com.example.test.study.enums.StudyStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Study {
     private StudyStatus status = StudyStatus.DRAFT;
+    private Parent owner;
     private int limit;
 
     public Study(int limit) {
@@ -19,5 +21,9 @@ public class Study {
 
     private boolean isFull(int joinPeopleNum){
         return joinPeopleNum >= limit;
+    }
+
+    public void setOwner(Parent owner){
+        this.owner = owner;
     }
 }
