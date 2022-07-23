@@ -34,6 +34,7 @@ public class StudyServiceTest {
     }
 
     @Test
+    @DisplayName("mock stubbing")
     void createStudyService2(@Mock ParentService parentService2, @Mock StudyRepository studyRepository2){
         StudyService studyService = new StudyService(parentService2, studyRepository2);
         Parent parent = new Parent();
@@ -54,4 +55,12 @@ public class StudyServiceTest {
         });
     }
 
+    @Test
+    @DisplayName("mock 객체 확인")
+    void mockNotify(){
+        Parent parent = new Parent();
+        when(parentService.findById(1L)).thenReturn(Optional.of(parent));
+
+        verify(parentService, times(1)).validate(any());
+    }
 }
