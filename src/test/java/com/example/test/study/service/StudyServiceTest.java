@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -15,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -62,5 +64,19 @@ public class StudyServiceTest {
         when(parentService.findById(1L)).thenReturn(Optional.of(parent));
 
         verify(parentService, times(1)).validate(any());
+    }
+
+    @Test
+    @DisplayName("BDD Mockito")
+    void bddMockitoTest(){
+        // given
+        Parent parent = new Parent();
+        given(parentService.findById(any())).willReturn(Optional.of(parent));
+
+        // when
+        Parent returnParent = parentService.findById(1L).get();
+
+        // then
+        assertEquals(parent.getStr1(), returnParent.getStr1());
     }
 }
